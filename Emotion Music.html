@@ -13,8 +13,6 @@
 
     <button class="btn-upload"> Upload </button>
 
-    
-
     <script type="text/javascript">
 
         document.querySelector('.btn-upload').addEventListener('click', function () {
@@ -36,8 +34,15 @@
                     data: '{"url": "' + input + '"}',
                 })
                 .done(function (data) {
-                    console.log(data);
-                    alert("success");
+                    //data[0].scores
+                    var max = 0;
+                    var emotions = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
+                    for (let i = 1; i < 8; ++i) {
+                        if (data[0].scores[emotions[i]] > data[0].scores[emotions[max]])
+                            max = i;
+                    }
+
+                    alert("Your emotion is "+emotions[max]);
                 })
                 .fail(function () {
                     alert("error");
