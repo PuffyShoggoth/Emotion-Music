@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <form>
+        Enter URL Here:<br>
+        <input type="text" id="Image URL"><br>
+    </form>
+
+    <button class="btn-upload"> Upload </button>
+
+    
+
+    <script type="text/javascript">
+
+        document.querySelector('.btn-upload').addEventListener('click', function () {
+
+            var input = document.getElementById("Image URL").value;
+            
+            $(function () {
+                var params = {
+
+                };
+
+                $.ajax({
+                    url: "https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize",
+                    beforeSend: function (xhrObj) {
+                        xhrObj.setRequestHeader("Content-Type", "application/json");
+                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "97becad2a9864e59876caed70c8f63cf");
+                    },
+                    type: "POST",
+                    data: '{"url": "' + input + '"}',
+                })
+                .done(function (data) {
+                    console.log(data);
+                    alert("success");
+                })
+                .fail(function () {
+                    alert("error");
+                });
+            });
+        });
+    
+    </script>
+</body>
+</html>
