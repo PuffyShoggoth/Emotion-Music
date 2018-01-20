@@ -34,15 +34,28 @@
                     data: '{"url": "' + input + '"}',
                 })
                 .done(function (data) {
-                    //data[0].scores
                     var max = 0;
                     var emotions = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
-                    for (let i = 1; i < 8; ++i) {
+                    for (let i = 1; i < 8; i++) {
                         if (data[0].scores[emotions[i]] > data[0].scores[emotions[max]])
                             max = i;
                     }
 
-                    alert("Your emotion is "+emotions[max]);
+                    document.getElementById("message").innerHTML = "Your emotion is " + emotions[max] + "! Here are some songs that match your current emotion:";
+                    console.log(data);
+
+                    var songs = [
+                        ["Angry Song 1", "Angry Song 2", "Angry Song 3"],
+                        ["Contempt Song 1", "Contempt Song 2", "Contempt Song 3"],
+                        ["Disgust Song 1", "Disgust Song 2", "Disgust Song 3"],
+                        ["Fear Song 1", "Fear Song 2", "Fear Song 3"],
+                        ["Happy Song 1", "Happy Song 2", "Happy Song 3"],
+                        ["Neutral Song 1", "Neutral Song 2", "Neutral Song 3"],
+                        ["Sad Song 1", "Sad Song 2", "Sad Song 3"],
+                        ["Surprise Song 1", "Surprise Song 2", "Surprise Song 3"]
+                    ];
+                    for (let i = 0; i < songs[max].length; i++)
+                        document.getElementById("song list").innerHTML += "<li> " + songs[max][i] + "</li>";
                 })
                 .fail(function () {
                     alert("error");
@@ -51,5 +64,13 @@
         });
     
     </script>
+
+    <p id="message">
+
+    </p>
+
+    <ol id="song list">
+
+    </ol>
 </body>
 </html>
